@@ -6,7 +6,7 @@
   "Parameters" : {
 
     "HostedZone" : {
-      "Description" : "This is the hosted zone you will connect jenkins to",
+      "Description" : "This is the hosted zone you will connect Jenkins to",
       "Type" : "String",
       "Default" : "singlestonedemo.com"
     },
@@ -112,6 +112,119 @@
         "Path": "/",
         "Roles": [ {
           "Ref": "RootRole"
+        } ]
+      }
+    },
+
+    "DNS" : {
+      "Type" : "AWS::Route53::RecordSetGroup",
+      "Properties" : {
+        "HostedZoneName" : { "Fn::Join" : [ "", [ { "Ref" : "HostedZone" }, "." ] ] },
+        "Comment" : "CNAME alias for the InnovateVA App Elastic Load Balancer",
+        "RecordSets" : [ {
+          "Name" : { "Fn::Join" : [ "", [ { "Ref" : "HostedZone" }, "." ] ] },
+          "Type" : "CNAME",
+          "TTL" : "900",
+          "ResourceRecords" : [ { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "DNSName" ] } ]
+        } ]
+      }
+    },
+
+    "IvaAppElasticLoadBalancer" : {
+      "Type" : "AWS::ElasticLoadBalancing::LoadBalancer",
+      "Properties" : {
+        "AvailabilityZones" : { "Fn::GetAZs" : { "Ref" : "AWS::Region" } },
+        "Listeners" : [
+          {
+            "LoadBalancerPort" : "80",
+            "InstancePort" : "80",
+            "InstanceProtocol" : "HTTP",
+            "Protocol" : "HTTP"
+          },
+          {
+            "LoadBalancerPort" : "443",
+            "InstancePort" : "80",
+            "InstanceProtocol" : "HTTPS",
+            "Protocol" : "HTTPS"
+          }
+        ],
+        "HealthCheck" : {
+          "Target" : "HTTP:8080/",
+          "HealthyThreshold" : "3",
+          "UnhealthyThreshold" : "2",
+          "Interval" : "5",
+          "Timeout" : "2"
+        }
+      }
+    },
+
+    "IvaAppLaunchConfig" : {
+      "Type" : "AWS::AutoScaling::LaunchConfiguration",
+      "Properties" : {
+        "IamInstanceProfile": { "Ref" : "RootInstanceProfile" },
+        "ImageId" : {
+          "Fn::FindInMap" : [
+            "AWSRegionArch2AMI",
+            { "Ref" : "AWS::Region" },
+            {
+              "Fn::FindInMap" : [
+                "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch"
+              ]
+            }
+          ]
+        },
+        "InstanceMonitoring" : "true",
+        "InstanceType" : { "Ref" : "InstanceType" },
+        "KeyName" : { "Ref" : "KeyName" },
+        "SecurityGroups" : [ { "Ref" : "IvaAppSecurityGroup" } ],
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
+          "#!/bin/bash -v\n",
+          "# Make directories\n",
+          "mkdir /var/log/newrelic\n",
+          "mkdir -p /opt/chef\n",
+          "mkdir /tmp\n",
+
+          "# Grab and install Chef Client\n",
+          "wget -O /tmp/chef-client.rpm       https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/binaries/chefdk-0.3.0-1.x86_64.rpm\n",
+          "rpm -Uvh /tmp/chef-client.rpm\n",
+
+          "# Grab configuration artifacts\n",
+          "wget -O /tmp/hostname.sh           https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/hostname.sh\n",
+          "wget -O /opt/chef/client.rb        https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/webclient.rb\n",
+          "wget -O /opt/chef/node.json        https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/webnode.json\n",
+
+          "# Grab security artifacts\n",
+          "wget -O /opt/chef/validator.pem    https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/validator.pem\n",
+
+          "# Set hostname\n",
+          "bash /tmp/hostname.sh\n",
+          "hostname InnovateVaApp\n",
+          "export HOSTNAME=`/usr/bin/curl -s http://169.254.169.254/latest/meta-data/local-hostname`\n",
+
+          "# Bootstrap App Server\n",
+          "chef-client -c /opt/chef/client.rb -s 60\n",
+
+          "# Notify completion\n",
+          "touch /root/chef-complete"
+        ]]}}
+        }
+    },
+
+    "IvaAppAutoScalingGroup" : {
+      "Type" : "AWS::AutoScaling::AutoScalingGroup",
+      "Properties" : {
+        "AvailabilityZones" : { "Fn::GetAZs" : { "Ref" : "AWS::Region" } },
+        "DesiredCapacity" : "1",
+        "HealthCheckGracePeriod" : "300",
+        "HealthCheckType" : "ELB",
+        "LaunchConfigurationName" : { "Ref" : "IvaAppLaunchConfig" },
+        "LoadBalancerNames" : [ { "Ref" : "IvaAppElasticLoadBalancer" } ],
+        "MinSize" : "1",
+        "MaxSize" : "2",
+        "Tags" : [ {
+          "Key" : "Name",
+          "Value" : "InnovateVA App Server",
+          "PropagateAtLaunch" : "true"
         } ]
       }
     },
@@ -293,10 +406,10 @@
       }
     },
 
-    "PublicIp" : {
+    "DNSName" : {
       "Description" : "This is the publicly addressable IP address assigned to the InnovateVA web server.  Will need this for Route53.",
       "Value" : {
-        "Fn::GetAtt": [ "IvaAppInstance", "PublicIp" ]
+        "Fn::GetAtt": [ "IvaAppElasticLoadBalancer", "DNSName" ]
       }
     }
   }
