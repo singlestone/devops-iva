@@ -119,7 +119,7 @@
     "DNS" : {
       "Type" : "AWS::Route53::RecordSetGroup",
       "Properties" : {
-        "HostedZoneName" : { "Fn::Join" : [ "", [ { "Ref" : "HostedZone" }, "." ] ] },
+        "HostedZoneName" : { "Fn::Join" : [ "", [ "selfie", { "Ref" : "HostedZone" }, "." ] ] },
         "Comment" : "CNAME alias for the InnovateVA App Elastic Load Balancer",
         "RecordSets" : [ {
           "Name" : { "Fn::Join" : [ "", [ { "Ref" : "HostedZone" }, "." ] ] },
