@@ -11,7 +11,7 @@
     "S3Bucket" : {
       "Description" : "This is the s3 bucket where your cfn templates are stored",
       "Type" : "String",
-      "Default" : "singlestone"
+      "Default" : "devops-iva"
     },
      "KeyName" : {
         "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
