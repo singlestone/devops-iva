@@ -140,12 +140,6 @@
             "InstancePort" : "80",
             "InstanceProtocol" : "HTTP",
             "Protocol" : "HTTP"
-          },
-          {
-            "LoadBalancerPort" : "443",
-            "InstancePort" : "80",
-            "InstanceProtocol" : "HTTPS",
-            "Protocol" : "HTTPS"
           }
         ],
         "HealthCheck" : {
