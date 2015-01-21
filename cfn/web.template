@@ -25,8 +25,8 @@
       "ConstraintDescription" : "Must be a valid EC2 instance type."
     },
 
-    "IvaPublicSubnetId" : {
-      "Description" : "This parameter will pull in the Public Subnet ID returned from vpc.template.",
+    "IvaPrivateSubnetId" : {
+      "Description" : "This parameter will pull in the Private Subnet ID returned from vpc.template.",
       "Type" : "String"
     },
 
@@ -221,7 +221,8 @@
           "Key" : "Name",
           "Value" : "InnovateVA App Server",
           "PropagateAtLaunch" : "true"
-        } ]
+        } ],
+        "VPCZoneIdentifier" : [ { "Ref" : "IvaPrivateSubnet" } ]
       }
     },
 
