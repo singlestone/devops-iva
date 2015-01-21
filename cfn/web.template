@@ -9,7 +9,7 @@
       "Description" : "This is the hosted zone you will connect Jenkins to",
       "Type" : "String",
       "Default" : "singlestonedemo.com"
-    },
+    },,
 
     "S3Bucket" : {
       "Description" : "This is the s3 bucket where your cfn templates are stored",
