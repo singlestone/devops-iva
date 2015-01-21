@@ -126,7 +126,7 @@
           "Type" : "A",
           "AliasTarget" : {
             "DNSName" : { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "DNSName" ] },
-            "HostedZoneId" : { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "CanonicalHostedZoneName" ] }
+            "HostedZoneId" : { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "CanonicalHostedZoneNameID" ] }
           }
         } ]
       }
