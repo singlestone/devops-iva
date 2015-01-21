@@ -252,7 +252,7 @@
             "Description" : "Primary network interface",
             "DeviceIndex" : 0,
             "SubnetId" : {
-              "Ref" : "IvaPublicSubnetId"
+              "Ref" : "IvaPrivateSubnetId"
             },
             "PrivateIpAddresses" : [
               {
