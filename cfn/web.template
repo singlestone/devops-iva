@@ -222,7 +222,7 @@
           "Value" : "InnovateVA App Server",
           "PropagateAtLaunch" : "true"
         } ],
-        "VPCZoneIdentifier" : [ { "Ref" : "IvaPrivateSubnet" } ]
+        "VPCZoneIdentifier" : [ { "Ref" : "IvaPrivateSubnetId" } ]
       }
     },
 
