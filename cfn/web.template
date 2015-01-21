@@ -317,20 +317,6 @@
       }
     },
 
-    "IvaAppDNS" : {
-      "Type" : "AWS::Route53::RecordSet",
-      "Properties" : {
-        "Comment" : "Sets hostname for IvaApp.",
-        "HostedZoneName" : { "Fn::Join" : ["", [{ "Ref" : "HostedZone" }, "."]]},
-        "Name" : { "Fn::Join" : ["", [{ "Ref" : "HostedZone" }, "."]]},
-        "ResourceRecords" : [
-          { "Fn::GetAtt" : [ "IvaAppInstance", "PublicIp" ] }
-        ],
-        "TTL" : "60",
-        "Type" : "A"
-      }
-    },
-
     "IvaAppSecurityGroup" : {
       "Type" : "AWS::EC2::SecurityGroup",
       "Properties" : {
