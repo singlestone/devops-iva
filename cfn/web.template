@@ -120,12 +120,14 @@
       "Type" : "AWS::Route53::RecordSetGroup",
       "Properties" : {
         "HostedZoneName" : { "Fn::Join" : [ "", [ { "Ref" : "HostedZone" }, "." ] ] },
-        "Comment" : "CNAME alias for the InnovateVA App Elastic Load Balancer",
+        "Comment" : "DNS Alias for the InnovateVA App Elastic Load Balancer",
         "RecordSets" : [ {
           "Name" : { "Fn::Join" : [ "", [ { "Ref" : "HostedZone" }, "." ] ] },
-          "Type" : "CNAME",
-          "TTL" : "900",
-          "ResourceRecords" : [ { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "DNSName" ] } ]
+          "Type" : "A",
+          "AliasTarget" : {
+            "DNSName" : { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "DNSName" ] },
+            "HostedZoneId" : { "Fn::GetAtt" : [ "IvaAppElasticLoadBalancer", "CanonicalHostedZoneName" ] }
+          }
         } ]
       }
     },
