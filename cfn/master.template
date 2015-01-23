@@ -45,7 +45,8 @@
             "KeyName" : { "Ref" : "KeyName" },
             "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ] },
             "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ] },
-            "IvaBastionSecurityGroupId" : { "Fn::GetAtt" : [ "IvaBastionStack", "Outputs.IvaBastionSecurityGroupId" ] }
+            "IvaBastionSecurityGroupId" : { "Fn::GetAtt" : [ "IvaBastionStack", "Outputs.IvaBastionSecurityGroupId" ] },
+            "IvaPrivateRouteTableId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateRouteTableId" ] }
           },
         "TimeoutInMinutes" : "600"
       }
