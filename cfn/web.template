@@ -209,7 +209,7 @@
     "IvaAppAutoScalingGroup" : {
       "Type" : "AWS::AutoScaling::AutoScalingGroup",
       "Properties" : {
-        "AvailabilityZones" : { "Fn::GetAZs" : { "Ref" : "AWS::Region" } },
+        "AvailabilityZones" : [ { "Fn::GetAtt" : [ "IvaPrivateSubnetId", "AvailabilityZone" ] } ],
         "DesiredCapacity" : "1",
         "HealthCheckGracePeriod" : "300",
         "HealthCheckType" : "ELB",
