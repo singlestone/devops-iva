@@ -37,14 +37,15 @@
 
     "IvaNATStack" : {
       "Type" : "AWS::CloudFormation::Stack",
-      "DependsOn" : "IvaVpcStack",
+      "DependsOn" : [ "IvaVpcStack", "IvaBastionStack" ]
       "Properties" : {
         "TemplateURL" : { "Fn::Join" : [ "", [ "https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/cfn/nat.template" ] ] },
           "Parameters" : {
             "InstanceType" : "t2.micro",
             "KeyName" : { "Ref" : "KeyName" },
             "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ] },
-            "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ] }
+            "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ] },
+            "IvaBastionSecurityGroupId" : {  },
           },
         "TimeoutInMinutes" : "600"
       }

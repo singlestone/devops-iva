@@ -251,7 +251,7 @@
       }
     },
     
-    "IvaRouteTableId" : {
+    "IvaPrivateRouteTableId" : {
       "Description" : "This is the ID of the private Route Table.  The nat.template needs this ID to add a route entry to the private Route Table.",      
       "Value" : {
         "Ref" : "IvaPrivateRouteTable"
