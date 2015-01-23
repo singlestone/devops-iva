@@ -35,6 +35,40 @@
       }
     },
 
+    "IvaNATStack" : {
+      "Type" : "AWS::CloudFormation::Stack",
+      "DependsOn" : "IvaVpcStack",
+      "Properties" : {
+        "TemplateURL" : { "Fn::Join" : [ "", [ "https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/cfn/nat.template" ] ] }
+          "Parameters" : {
+            "InstanceType" : "t2.micro",
+            "KeyName" : { "Ref" : "KeyName" },
+            "S3Bucket" : { "Ref" : "S3Bucket" },
+            "HostedZone" : { "Ref" : "HostedZone" },
+            "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ] },
+            "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ] }
+          },
+        "TimeoutInMinutes" : "600"
+      }
+    },
+
+    "IvaBastionStack" : {
+      "Type" : "AWS::CloudFormation::Stack",
+      "DependsOn" : "IvaVpcStack",
+      "Properties" : {
+        "TemplateURL" : { "Fn::Join" : [ "", [ "https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/cfn/bastion.template" ] ] }
+          "Parameters" : {
+            "InstanceType" : "t2.micro",
+            "KeyName" : { "Ref" : "KeyName" },
+            "S3Bucket" : { "Ref" : "S3Bucket" },
+            "HostedZone" : { "Ref" : "HostedZone" },
+            "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ] },
+            "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ] }
+          },
+        "TimeoutInMinutes" : "600"
+      }
+    },
+
     "IvaJenkinsStack" : {
       "Type" : "AWS::CloudFormation::Stack",
       "DependsOn" : "IvaVpcStack",
@@ -54,6 +88,7 @@
 
     "IvaWebStack" : {
       "Type" : "AWS::CloudFormation::Stack",
+      "DependsOn" : "IvaNATStack",
       "Description" : "Brings up an Amazon Linux application server with Apache and Tomcat.",
       "Properties" : {
         "TemplateURL" : { "Fn::Join" : [ "", [ "https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/cfn/web.template" ]]},

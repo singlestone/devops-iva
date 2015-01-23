@@ -6,10 +6,10 @@
   "Parameters" : {
 
     "InstanceType" : {
-      "Description" : "Enter m1.small, m3.medium (for high CPU), or m1.large.  Default is m1.small.",
-      "Default" : "m3.medium",
+      "Description" : "Enter t2.micro, m1.small, m3.medium (for high CPU), or m1.large.  Default is t2.micro.",
+      "Default" : "t2.micro",
       "Type" : "String",
-      "AllowedValues" : [ "m1.small","m3.medium","m1.large" ],
+      "AllowedValues" : [ "t2.micro","m1.small","m3.medium","m1.large" ],
       "ConstraintDescription" : "Must be a valid EC2 instance type."
     },
 
