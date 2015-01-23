@@ -63,7 +63,7 @@
           "S3Bucket" : { "Ref" : "S3Bucket" },
           "HostedZone" : { "Ref" : "HostedZone" },
           "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ]},
-          "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ]}
+          "IvaPrivateSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateSubnetId" ]}
         },
         "TimeoutInMinutes" : "600"
       }
