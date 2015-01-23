@@ -240,7 +240,7 @@
     "IvaPrivateSubnetAZ" : {
       "Description" : "This is the Availability Zone of the private subnet for use in other templates.",
       "Value" : {
-        "Fn:GetAtt" : [ "IvaPrivateSubnet", "AvailabilityZone" ]
+        "Fn::GetAtt" : [ "IvaPrivateSubnet", "AvailabilityZone" ]
       }
     },
     
