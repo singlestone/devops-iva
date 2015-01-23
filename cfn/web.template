@@ -307,13 +307,6 @@
   },
 
   "Outputs" : {
-    "InstanceId" : {
-      "Description" : "This is the instance ID of the InnovateVA web server.",
-      "Value" : {
-        "Ref" : "IvaAppInstance"
-      }
-    },
-
     "DNSName" : {
       "Description" : "This is the publicly addressable IP address assigned to the InnovateVA web server.  Will need this for Route53.",
       "Value" : {
