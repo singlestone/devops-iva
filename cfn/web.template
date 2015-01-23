@@ -214,7 +214,7 @@
     "IvaAppAutoScalingGroup" : {
       "Type" : "AWS::AutoScaling::AutoScalingGroup",
       "Properties" : {
-        "AvailabilityZones" : { "Ref" : "IvaPrivateSubnetAZ" } ,
+        "AvailabilityZones" : [ { "Ref" : "IvaPrivateSubnetAZ" } ],
         "DesiredCapacity" : "1",
         "HealthCheckGracePeriod" : "300",
         "HealthCheckType" : "ELB",
