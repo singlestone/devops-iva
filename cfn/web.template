@@ -141,10 +141,11 @@
       "Type" : "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties" : {
         "AvailabilityZones" : { "Fn::GetAZs" : { "Ref" : "AWS::Region" } },
+        "CrossZone" : "true",
         "Listeners" : [
           {
             "LoadBalancerPort" : "80",
-            "InstancePort" : "80",
+            "InstancePort" : "8080",
             "InstanceProtocol" : "HTTP",
             "Protocol" : "HTTP"
           }
@@ -152,9 +153,9 @@
         "HealthCheck" : {
           "Target" : "HTTP:8080/",
           "HealthyThreshold" : "3",
-          "UnhealthyThreshold" : "2",
-          "Interval" : "5",
-          "Timeout" : "2"
+          "UnhealthyThreshold" : "5",
+          "Interval" : "30",
+          "Timeout" : "5"
         }
       }
     },
