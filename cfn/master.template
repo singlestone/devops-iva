@@ -56,7 +56,7 @@
       "Type" : "AWS::CloudFormation::Stack",
       "DependsOn" : "IvaVpcStack",
       "Properties" : {
-        "TemplateURL" : { "Fn::Join" : [ "", [ "https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/cfn/bastion.template" ] ] }
+        "TemplateURL" : { "Fn::Join" : [ "", [ "https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/cfn/bastion.template" ] ] },
           "Parameters" : {
             "InstanceType" : "t2.micro",
             "KeyName" : { "Ref" : "KeyName" },
