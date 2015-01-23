@@ -133,6 +133,7 @@ bash "fix Tomcat" do
     wget -O /etc/init.d/tomcat7 https://s3.amazonaws.com/singlestone/bin/tomcat7.sh
     bash /etc/init.d/tomcat7
     chmod 777 /var/lib/tomcat7/webapps
+    chown ec2-user:tomcat /var/lib/tomcat7/webapps
     bash /tmp/set_vars.sh
     EOH
 end
