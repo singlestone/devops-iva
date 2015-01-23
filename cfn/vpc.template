@@ -237,6 +237,13 @@
       }
     },
     
+    "IvaPrivateSubnetAZ" : {
+      "Description" : "This is the Availability Zone of the private subnet for use in other templates.",
+      "Value" : {
+        "Fn:GetAtt" : [ "IvaPrivateSubnet", "AvailabilityZone" ]
+      }
+    },
+    
     "IvaPublicSubnetId" : {
       "Description" : "This is the ID of the public subnet for use in other templates.",
       "Value" : {

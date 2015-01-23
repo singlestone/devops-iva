@@ -29,6 +29,11 @@
       "Description" : "This parameter will pull in the Private Subnet ID returned from vpc.template.",
       "Type" : "String"
     },
+    
+    "IvaPrivateSubnetAZ" : {
+      "Description" : "This parameter will pull in the Private Subnet AZ returned from vpc.template.",
+      "Type" : "String"
+    },
 
     "KeyName" : {
       "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
