@@ -97,7 +97,7 @@
         "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
                                           { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch" ] } ] },
         "InstanceType"     : { "Ref" : "InstanceType" },
-        "SecurityGroupIds"   : [ { "Ref" : "SecurityGroupId" } ],
+        "SecurityGroupIds"   : [ { "Ref" : "SecurityGroupID" } ],
         "KeyName"        : { "Ref" : "KeyName" },
         "Tags": [ { "Key": "Name", "Value": "AWS Command Line Interface Instance" } ],
         "SubnetId" : { "Ref" : "SubnetID" },
