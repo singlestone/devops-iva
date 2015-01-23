@@ -181,32 +181,32 @@
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
           "#!/bin/bash -v\n",
           "# Make directories\n",
-          "#mkdir /var/log/newrelic\n",
+          "mkdir /var/log/newrelic\n",
           "mkdir -p /opt/chef\n",
           "mkdir /tmp\n",
 
           "# Grab and install Chef Client\n",
-          "#wget -O /tmp/chef-client.rpm       https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/binaries/chefdk-0.3.0-1.x86_64.rpm\n",
-          "#rpm -Uvh /tmp/chef-client.rpm\n",
+          "wget -O /tmp/chef-client.rpm       https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/binaries/chefdk-0.3.0-1.x86_64.rpm\n",
+          "rpm -Uvh /tmp/chef-client.rpm\n",
 
           "# Grab configuration artifacts\n",
-          "#wget -O /tmp/hostname.sh           https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/hostname.sh\n",
-          "#wget -O /opt/chef/client.rb        https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/webclient.rb\n",
-          "#wget -O /opt/chef/node.json        https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/webnode.json\n",
+          "wget -O /tmp/hostname.sh           https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/hostname.sh\n",
+          "wget -O /opt/chef/client.rb        https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/webclient.rb\n",
+          "wget -O /opt/chef/node.json        https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/webnode.json\n",
 
           "# Grab security artifacts\n",
-          "#wget -O /opt/chef/validator.pem    https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/validator.pem\n",
+          "wget -O /opt/chef/validator.pem    https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/validator.pem\n",
 
           "# Set hostname\n",
-          "#bash /tmp/hostname.sh\n",
-          "#hostname InnovateVaApp\n",
-          "#export HOSTNAME=`/usr/bin/curl -s http://169.254.169.254/latest/meta-data/local-hostname`\n",
+          "bash /tmp/hostname.sh\n",
+          "hostname InnovateVaApp\n",
+          "export HOSTNAME=`/usr/bin/curl -s http://169.254.169.254/latest/meta-data/local-hostname`\n",
 
           "# Bootstrap App Server\n",
-          "#chef-client -c /opt/chef/client.rb -s 60\n",
+          "chef-client -c /opt/chef/client.rb -s 60\n",
 
           "# Notify completion\n",
-          "#touch /root/chef-complete"
+          "touch /root/chef-complete"
         ]]}}
         }
     },
@@ -228,6 +228,64 @@
           "PropagateAtLaunch" : "true"
         } ],
         "VPCZoneIdentifier" : [ { "Ref" : "IvaPrivateSubnetId" } ]
+      }
+    },
+
+    "ScaleUpPolicy" : {
+      "Type" : "AWS::AutoScaling::ScalingPolicy",
+      "Properties" : {
+        "AdjustmentType" : "ChangeInCapacity",
+        "AutoScalingGroupName" : { "Ref" : "IvaAppAutoScalingGroup" },
+        "Cooldown" : "60",
+        "ScalingAdjustment" : "1"
+      }
+    },
+
+    "ScaleDownPolicy" : {
+      "Type" : "AWS::AutoScaling::ScalingPolicy",
+      "Properties" : {
+        "AdjustmentType" : "ChangeInCapacity",
+        "AutoScalingGroupName" : { "Ref" : "IvaAppAutoScalingGroup" },
+        "Cooldown" : "60",
+        "ScalingAdjustment" : "-1"
+      }
+    },
+
+    "CPUAlarmHigh" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmDescription" : "Trigger an alarm if CPU utilization > 60% for 2 minutes",
+        "EvaluationPeriods" : "2",
+        "Statistic" : "Average",
+        "Threshold" : "60",
+        "Period" : "60",
+        "AlarmActions" : [ { "Ref" : "ScaleUpPolicy" } ],
+        "Namespace" : "AWS/EC2",
+        "Dimensions" : [ {
+          "Name" : "AutoScalingGroupName",
+          "Value" : { "Ref" : "IvaAppAutoScalingGroup" }
+        } ],
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "MetricName" : "CPUUtilization"
+      }
+    },
+
+    "CPUAlarmLow" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmDescription" : "Trigger an alarm if CPU utilization < 10% for 2 minutes",
+        "EvaluationPeriods" : "2",
+        "Statistic" : "Average",
+        "Threshold" : "10",
+        "Period" : "60",
+        "AlarmActions" : [ { "Ref" : "ScaleDownPolicy" } ],
+        "Namespace" : "AWS/EC2",
+        "Dimensions" : [ {
+          "Name" : "AutoScalingGroupName",
+          "Value" : { "Ref" : "IvaAppAutoScalingGroup" }
+        } ],
+        "ComparisonOperator" : "LessThanThreshold",
+        "MetricName" : "CPUUtilization"
       }
     },
 
