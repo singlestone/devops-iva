@@ -118,12 +118,12 @@ node['tomcat']['instances'].each do |name, attrs|
   end
 end
 
-remote_file "/tmp/set_vars.sh" do
-    source "https://s3.amazonaws.com/singlestone/bin/set_vars.sh"
-    owner 'root'
-    group 'root'
-    mode "644"
-end
+#remote_file "/tmp/set_vars.sh" do
+#    source "https://s3.amazonaws.com/singlestone/bin/set_vars.sh"
+#    owner 'root'
+#    group 'root'
+#    mode "644"
+#end
 
 bash "fix Tomcat" do
     code <<-EOH

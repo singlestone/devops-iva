@@ -176,6 +176,7 @@
 
           "# Grab security artifacts\n",
           "wget -O /opt/chef/validator.pem    https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/chef/validator.pem\n",
+          "wget -O /tmp/set_vars.sh           https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/bin/set_vars.sh\n",
 
           "# Set hostname\n",
           "bash /tmp/hostname.sh\n",
