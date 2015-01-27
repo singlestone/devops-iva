@@ -97,7 +97,8 @@
           "HostedZone" : { "Ref" : "HostedZone" },
           "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ]},
           "IvaPrivateSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateSubnetId" ]},
-          "IvaPrivateSubnetAZ" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateSubnetAZ" ]}
+          "IvaPrivateSubnetAZ" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateSubnetAZ" ]},
+          "IvaVpcGatewayAttachment" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaVpcGatewayAttachment" ]}
         },
         "TimeoutInMinutes" : "600"
       }

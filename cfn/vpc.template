@@ -256,6 +256,13 @@
       "Value" : {
         "Ref" : "IvaPrivateRouteTable"
       }
+    },
+    
+    "IvaVpcGatewayAttachment" : {
+      "Description" : "This is the VPC Gateway Attachment.",
+      "Value" : {
+        "Ref" : "IvaVpcGatewayAttachment"
+      }
     }
   }
 }

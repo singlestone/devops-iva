@@ -18,10 +18,10 @@
     },
 
     "InstanceType" : {
-      "Description" : "Enter m3.medium, m3.large, or m3.xlarge.  Default is m3.medium.",
-      "Default" : "m3.medium",
+      "Description" : "Enter t2.micro, m3.medium, m3.large, or m3.xlarge.  Default is t2.micro.",
+      "Default" : "t2.micro",
       "Type" : "String",
-      "AllowedValues" : [ "m3.medium","m3.large","m3.xlarge" ],
+      "AllowedValues" : [ "t2.micro","m3.medium","m3.large","m3.xlarge" ],
       "ConstraintDescription" : "Must be a valid EC2 instance type."
     },
 
@@ -53,6 +53,11 @@
 
     "VpcId" : {
       "Description" : "This parameter will pull in the VPC ID returned from vpc.template.",
+      "Type" : "String"
+    },
+    
+    "IvaVpcGatewayAttachment" : {
+      "Description" : "This is the VPC Gateway Attachment.",
       "Type" : "String"
     }
   },
@@ -156,7 +161,10 @@
           "UnhealthyThreshold" : "5",
           "Interval" : "30",
           "Timeout" : "5"
-        }
+        },
+        "Scheme" : "internet-facing",
+        "SecurityGroups" : [ { "Ref" : "IvaPublicELBSecurityGroup" } ],
+        "DependsOn" : "IvaVpcGatewayAttachment"
       }
     },
 
@@ -220,7 +228,6 @@
         "HealthCheckGracePeriod" : "300",
         "HealthCheckType" : "ELB",
         "LaunchConfigurationName" : { "Ref" : "IvaAppLaunchConfig" },
-        "LoadBalancerNames" : [ { "Ref" : "IvaAppElasticLoadBalancer" } ],
         "MinSize" : "1",
         "MaxSize" : "2",
         "Tags" : [ {
@@ -228,7 +235,8 @@
           "Value" : "InnovateVA App Server",
           "PropagateAtLaunch" : "true"
         } ],
-        "VPCZoneIdentifier" : [ { "Ref" : "IvaPrivateSubnetId" } ]
+        "VPCZoneIdentifier" : [ { "Ref" : "IvaPrivateSubnetId" } ],
+        "LoadBalancerNames" : [ { "Ref" : "IvaAppElasticLoadBalancer" } ]
       }
     },
 
@@ -304,6 +312,44 @@
           "WriteCapacityUnits": "1"
         },
         "TableName" : "InnovateParticipants"
+      }
+    },
+    
+    "IvaPublicELBSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Defines security group for InnovateVA public-facing Elastic Load Balancer. Allows inbound (web) traffic on ports TCP 80 and TCP 443.",
+        "VpcId" : {
+          "Ref" : "VpcId"
+        },
+        "SecurityGroupIngress" : [
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "80",
+            "ToPort" : "80",
+            "CidrIp" : "0.0.0.0/0"
+          },
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "443",
+            "ToPort" : "443",
+            "CidrIp" : "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupEgress" : [
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "8080",
+            "ToPort" : "8080",
+            "DestinationSecurityGroupId" : { "Ref" : "IvaAppSecurityGroup" }
+          },
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "8443",
+            "ToPort" : "8443",
+            "DestinationSecurityGroupId" : { "Ref" : "IvaAppSecurityGroup" }
+          }
+        ]
       }
     },
 
