@@ -50,7 +50,7 @@
       "Properties" : {
         "DisableApiTermination" : "FALSE",
         "SourceDestCheck" : "false",
-        "ImageId" : "ami-08842d60",
+        "ImageId" : "ami-184dc970",
         "InstanceType" : {
           "Ref" : "InstanceType"
         },
