@@ -64,6 +64,11 @@
     "IvaVpcGatewayAttachment" : {
       "Description" : "This is the VPC Gateway Attachment.",
       "Type" : "String"
+    },
+    
+    "IvaNatSecurityGroup" : {
+      "Description" : "The instance ID of the NAT security group.",
+      "Type" : "String"
     }
   },
 
@@ -416,7 +421,21 @@
           }
         ]
       }
-    }
+    },
+
+    "AppIngress" : {
+      "Type" : "AWS::EC2::SecurityGroupIngress",
+      "Properties" : {
+        "GroupId" : {
+          "Ref" : "IvaNatSecurityGroup"
+        },
+        "IpProtocol" : "-1",
+        "SourceSecurityGroupId" : {
+          "Ref" : "IvaAppSecurityGroup"
+        },
+        "SourceSecurityGroupOwnerId" : "592342700041"
+      }
+    }    
   },
 
   "Outputs" : {

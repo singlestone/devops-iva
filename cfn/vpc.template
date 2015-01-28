@@ -182,7 +182,19 @@
         }
       }
     },
-    
+
+    "IvaPrivateSubnetRouteTableAssociation" : {
+      "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties" : {
+        "RouteTableId" : {
+          "Ref" : "IvaPrivateRouteTable"
+        },
+        "SubnetId" : {
+          "Ref" : "IvaPrivateSubnet"
+        }
+      }
+    },
+
     "IvaPublicSubnetRouteTableAssociation" : {
       "Type" : "AWS::EC2::SubnetRouteTableAssociation",
       "Properties" : {
@@ -195,7 +207,7 @@
       }
     },
     
-    "IvaPublicRoute1" : {
+    "IvaPublicRouteToInternet" : {
       "Type" : "AWS::EC2::Route",
       "DependsOn" : "IvaVpcGatewayAttachment",
       "Properties" : {
