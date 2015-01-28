@@ -196,7 +196,6 @@
           "# Make directories\n",
           "mkdir /var/log/newrelic\n",
           "mkdir -p /opt/chef\n",
-          "mkdir /tmp\n",
 
           "# Grab and install Chef Client\n",
           "wget -O /tmp/chef-client.rpm       https://s3.amazonaws.com/", { "Ref" : "S3Bucket" }, "/binaries/chefdk-0.3.0-1.x86_64.rpm\n",
