@@ -35,6 +35,11 @@
       "Type" : "String"
     },
 
+    "IvaPublicSubnetId" : {
+      "Description" : "This parameter will pull in the Public Subnet ID returned from vpc.template.",
+      "Type" : "String"
+    },
+
     "KeyName" : {
       "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
       "Default" : "innovate",
@@ -146,6 +151,7 @@
       "Type" : "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties" : {
         "AvailabilityZones" : { "Fn::GetAZs" : { "Ref" : "AWS::Region" } },
+        "Subnets" : [ { "Ref" : "IvaPublicSubnetId" } ],
         "CrossZone" : "true",
         "Listeners" : [
           {
@@ -163,8 +169,7 @@
           "Timeout" : "5"
         },
         "Scheme" : "internet-facing",
-        "SecurityGroups" : [ { "Ref" : "IvaPublicELBSecurityGroup" } ],
-        "DependsOn" : "IvaVpcGatewayAttachment"
+        "SecurityGroups" : [ { "Ref" : "IvaPublicELBSecurityGroup" } ]
       }
     },
 

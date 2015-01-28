@@ -98,6 +98,7 @@
           "VpcId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.VpcId" ]},
           "IvaPrivateSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateSubnetId" ]},
           "IvaPrivateSubnetAZ" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPrivateSubnetAZ" ]},
+          "IvaPublicSubnetId" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaPublicSubnetId" ]},
           "IvaVpcGatewayAttachment" : { "Fn::GetAtt" : [ "IvaVpcStack", "Outputs.IvaVpcGatewayAttachment" ]}
         },
         "TimeoutInMinutes" : "600"
