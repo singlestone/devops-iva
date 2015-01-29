@@ -145,7 +145,8 @@
         "Ref" : "IvaNat"
       }
     },
-    "NatSecurityGroupId" : {
+
+    "IvaNatSecurityGroup" : {
       "Description" : "The instance ID of the NAT security group.",
       "Value" : {
         "Ref" : "IvaNatSecurityGroup"
