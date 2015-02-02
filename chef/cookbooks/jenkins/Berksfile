@@ -1,6 +1,9 @@
 source 'https://api.berkshelf.com'
 metadata
 
+ cookbook 'maven',                path: '../maven'
+ cookbook 'git',                  path: '../git'
+
 group :integration do
   cookbook 'authentication',      path: 'test/fixtures/cookbooks/authentication'
   cookbook 'jenkins_command',     path: 'test/fixtures/cookbooks/jenkins_command'

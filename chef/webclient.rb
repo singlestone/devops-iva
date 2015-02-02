@@ -1,6 +1,6 @@
-#hostname = `/usr/bin/curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
+hostname = `/usr/bin/curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 
-node_name				"InnovateVaWeb"
+node_name				"#{hostname}"
 log_level				:debug
 log_location			'/opt/chef/chef-client.log'
 ssl_verify_mode			:verify_none
