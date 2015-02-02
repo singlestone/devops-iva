@@ -53,7 +53,7 @@ suites:
       jenkins:
         master:
           install_method: package
-          version: '1.555-1.1'
+          version: '1.598-1.1'
   - name: smoke_package_latest
     run_list: smoke::default
     attributes:
@@ -67,7 +67,7 @@ suites:
       jenkins:
         master:
           install_method: war
-          version: '1.555'
+          version: '1.598'
 
   #
   # Authentication suites
