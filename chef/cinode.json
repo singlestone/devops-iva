@@ -1,7 +1,7 @@
 { "run_list" : [
+		"recipe[java]",
 		"recipe[newrelic]",
 		"recipe[maven]",
 		"recipe[git]",
-		"recipe[jenkins::java]",
 		"recipe[jenkins::master]"
 ]}
