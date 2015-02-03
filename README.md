@@ -10,7 +10,7 @@ Workflow
 =================
 The entire stack is kicked off with a call to CloudFormation.  This can either be through the AWS Console or through the AWS CLI.  If using the CLI, the appropriate command would be: 
 
-```aws cloudformation create-stack --stack-name InnovateVA --template-url https://s3.amazonaws.com/singlestone/cfn/master.template```
+```aws cloudformation create-stack --stack-name InnovateVA --template-url https://s3.amazonaws.com/singlestone/cfn/master.template  --capabilities CAPABILITY_IAM```
 
 Note that you will need to replace the S3 URL with the URL that you use to host the CloudFormation templates in the /cfn directory on GitHub.  Also, you will need to ensure that your CLI has API access to AWS; this can be accomplished by installing the CLI tools locally and setting your PATH variable such that it includes /usr/local/bin (the location of the AWS executables).  To determine if /usr/local/bin is already in your PATH, run:
 
