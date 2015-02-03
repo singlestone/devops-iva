@@ -40,8 +40,22 @@ directory "/etc/chef" do
 	action :create
 end
 
-jenkins_plugin 'git, hipchat' do
+# Install Git and HipChat plugins
+jenkins_plugin 'git' do
+#  notifies :restart, 'service[jenkins]', :immediately
+end
+
+jenkins_plugin 'hipchat' do
   notifies :restart, 'service[jenkins]', :immediately
+end
+
+# Integrate with HipChat
+template "/var/lib/jenkins/jenkins.plugins.hipchat.HipChatNotifier.xml" do
+	source "jenkins.plugins.hipchat.HipChatNotifier.erb"
+	action :create
+	owner "jenkins"
+	group "jenkins"
+	mode "0644"
 end
 
 directory "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/" do
