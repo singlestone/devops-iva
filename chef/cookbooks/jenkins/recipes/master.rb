@@ -64,7 +64,7 @@ directory "/var/lib/jenkins/.ssh" do
 	action :create
 	owner 'jenkins'
 	group 'jenkins'
-	mode '0600'
+	mode '0700'
 end
 
 remote_file "/var/lib/jenkins/.ssh/innovate.pem" do
@@ -72,7 +72,7 @@ remote_file "/var/lib/jenkins/.ssh/innovate.pem" do
 	source "https://s3.amazonaws.com/singlestone/chef/innovate.pem"
 	owner 'jenkins'
 	group 'jenkins'
-	mode '0400'
+	mode '0600'
 end
 
 cookbook_file "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/config.xml" do
