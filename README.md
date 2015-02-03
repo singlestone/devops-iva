@@ -31,3 +31,5 @@ Once bootstrapped, the two nodes execute Chef runs against themselves, at which 
 While the Jenkins server has been building itself with Chef, the Tomcat instance has also been executing its own Chef run based on a runlist containing the tomcat::default recipe.  Part of that recipe includes pulling down a shell script from S3 containing the access keys for the Twilio API.  This script simply echoes the JAVA_OPTS environment variable containing the twilio.authToken and twilio.sid parameters into /etc/tomcat7/tomcat7.conf.
 
 Since the application has been compiled and installed in the correct directory for Tomcat to serve the file by the Jenkins job, Tomcat should start and the app should be available at singlestonedemo:8080.
+
+The permissons on /var/lib/jenkins/.ssh should be 700 and /var/lib/jenkins/.ssh/[ssh_key].pem should be 600.
