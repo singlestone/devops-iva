@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.plugins.hipchat.HipChatNotifier_-DescriptorImpl plugin="hipchat@0.1.8">
+  <server>api.hipchat.com</server>
+  <token><%= node['jenkins']['plugin']['hipchat']['api_token'] %></token>
+  <room><%= node['jenkins']['plugin']['hipchat']['room_number'] %></room>
+  <buildServerUrl><%= node['jenkins']['plugin']['hipchat']['build_server_url'] %></buildServerUrl>
+  <sendAs>Build User</sendAs>
+</jenkins.plugins.hipchat.HipChatNotifier_-DescriptorImpl>

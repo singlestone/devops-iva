@@ -52,3 +52,8 @@ default['jenkins'].tap do |jenkins|
                       'java'
                     end
 end
+
+default['jenkins']['plugin']['hipchat']['api_token'] = "865e3915367529c40d7a89f19c21db"
+default['jenkins']['plugin']['hipchat']['room_number'] = "1023591"
+default['jenkins']['plugin']['hipchat']['build_server_url'] = "http://jenkins.singlestonedemo.com:8080/"
+ 
