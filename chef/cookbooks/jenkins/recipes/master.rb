@@ -40,7 +40,7 @@ directory "/etc/chef" do
 	action :create
 end
 
-jenkins_plugin 'git' do
+jenkins_plugin 'git, hipchat' do
   notifies :restart, 'service[jenkins]', :immediately
 end
 
