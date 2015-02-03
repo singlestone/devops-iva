@@ -89,11 +89,11 @@ remote_file "/var/lib/jenkins/.ssh/innovate.pem" do
 	mode '0600'
 end
 
-cookbook_file "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/config.xml" do
-	source "config.xml"
-	owner 'jenkins'
-	group 'jenkins'
-	mode "0644"
+template "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/config.xml" do
+	source "job-config.erb"
+	owner  'jenkins'
+	group  'jenkins'
+	mode   "0644"
 	action :create
 end
 
