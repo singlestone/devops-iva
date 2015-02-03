@@ -44,7 +44,7 @@ jenkins_plugin 'git' do
   notifies :restart, 'service[jenkins]', :immediately
 end
 
-directory "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App/" do
+directory "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/" do
 	action :create
 	owner 'jenkins'
 	group 'jenkins'
@@ -60,7 +60,22 @@ cookbook_file "/var/lib/jenkins/credentials.xml" do
 	action :create
 end
 
-cookbook_file "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App/config.xml" do
+directory "/var/lib/jenkins/.ssh" do
+	action :create
+	owner 'jenkins'
+	group 'jenkins'
+	mode '0400'
+end
+
+remote_file "/var/lib/jenkins/.ssh/innovate.pem" do
+	action :create
+	source "https://s3.amazonaws.com/singlestone/chef/innovate.pem"
+	owner 'jenkins'
+	group 'jenkins'
+	mode '0600'
+end
+
+cookbook_file "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/config.xml" do
 	source "config.xml"
 	owner 'jenkins'
 	group 'jenkins'
