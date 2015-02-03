@@ -9,7 +9,7 @@
 # BASIC CONFIG
 ##############
 # license(s)
-default['newrelic']['license'] = 'b8526bf875597774a780f66ceb5cea784038228d'
+default['newrelic']['license'] = '692c0fd6acd4e06e111696551cf5fc60230f6deb'
 default['newrelic']['server_monitoring']['license'] = node['newrelic']['license']
 default['newrelic']['application_monitoring']['license'] = node['newrelic']['license']
 
