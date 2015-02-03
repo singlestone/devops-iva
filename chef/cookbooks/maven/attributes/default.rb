@@ -33,4 +33,4 @@ default['maven']['3']['url'] = "http://apache.mirrors.tds.net/maven/maven-3/#{no
 default['maven']['3']['checksum'] = '077ed466455991d5abb4748a1d022e2d2a54dc4d557c723ecbacdc857c61d51b'
 default['maven']['3']['plugin_version'] = '2.4'
 default['maven']['repositories'] = ['http://repo1.maven.apache.org/maven2']
-default['maven']['setup_bin'] = false
+default['maven']['setup_bin'] = true
