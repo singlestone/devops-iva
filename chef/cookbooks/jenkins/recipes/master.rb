@@ -49,6 +49,15 @@ jenkins_plugin 'hipchat' do
   notifies :restart, 'service[jenkins]', :immediately
 end
 
+# Place Jenkins system configuration file (includes path to maven)
+cookbook_file "/var/lib/jenkins/config.xml" do
+	source "jenkins_config.xml"
+	action :create
+	owner "jenkins"
+	group "jenkins"
+	mode "0644"
+end
+
 # Integrate with HipChat
 template "/var/lib/jenkins/jenkins.plugins.hipchat.HipChatNotifier.xml" do
 	source "jenkins.plugins.hipchat.HipChatNotifier.erb"
