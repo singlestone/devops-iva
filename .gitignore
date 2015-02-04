@@ -5,6 +5,7 @@ chef/ssc-validator.pem
 chef/validator.pem
 chef/my_secret_key
 chef/dtashner.pem
+chef/knife.rb
 
 *.iml
 .DS_Store
