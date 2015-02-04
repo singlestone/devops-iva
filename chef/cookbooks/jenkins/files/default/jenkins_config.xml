@@ -37,7 +37,7 @@
         <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
           <type>hudson.tasks.Maven$MavenInstallation$DescriptorImpl</type>
           <name>3.1.1</name>
-          <home>/usr/local/maven</home>
+          <home>/usr/local/maven-3.1.1/bin</home>
         </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
       </locations>
     </hudson.tools.ToolLocationNodeProperty>
