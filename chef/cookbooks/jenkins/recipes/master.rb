@@ -75,6 +75,14 @@ directory "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/" do
 	recursive true
 end
 
+directory "/var/lib/jenkins/jobs/executeshell/" do
+	action :create
+	owner 'jenkins'
+	group 'jenkins'
+	mode "0755"
+	recursive true
+end
+
 cookbook_file "/var/lib/jenkins/credentials.xml" do
 	source "credentials.xml"
 	owner 'jenkins'
@@ -100,6 +108,14 @@ end
 
 template "/var/lib/jenkins/jobs/Build\ and\ Deploy\ App\/config.xml" do
 	source "job-config.erb"
+	owner  'jenkins'
+	group  'jenkins'
+	mode   "0644"
+	action :create
+end
+
+template "/var/lib/jenkins/jobs/executeshell/config.xml" do
+	source "shell-job.erb"
 	owner  'jenkins'
 	group  'jenkins'
 	mode   "0644"
