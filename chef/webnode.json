@@ -1,5 +1,5 @@
 { "run_list" : [
-		"recipe[newrelic]",
+		"recipe[appdynamics]",
 		"recipe[openssl]",
 		"recipe[tomcat]"
 ]}
