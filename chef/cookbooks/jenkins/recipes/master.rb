@@ -75,7 +75,7 @@ end
 #	recursive true
 #end
 
-directory "/var/lib/jenkins/jobs/executeshell/" do
+directory "/var/lib/jenkins/jobs/DeployInnovate/" do
 	action :create
 	owner 'jenkins'
 	group 'jenkins'
@@ -114,7 +114,7 @@ end
 #	action :create
 #end
 
-template "/var/lib/jenkins/jobs/executeshell/config.xml" do
+template "/var/lib/jenkins/jobs/DeployInnovate/config.xml" do
 	source "shell-job.erb"
 	owner  'jenkins'
 	group  'jenkins'

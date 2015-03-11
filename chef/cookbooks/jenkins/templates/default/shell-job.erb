@@ -45,9 +45,9 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /var/lib/jenkins/jobs/executeshell/workspace/app
+      <command>cd /var/lib/jenkins/jobs/DeployInnovate/workspace/app
 /usr/local/maven-3.1.1/bin/mvn clean install
-scp -i /var/lib/jenkins/.ssh/innovate.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /var/lib/jenkins/jobs/executeshell/workspace/app/target/devops-iva-1.0.0-SNAPSHOT.war ec2-user@singlestonedemo.com:/usr/share/tomcat7/webapps/ROOT.war</command>
+scp -i /var/lib/jenkins/.ssh/innovate.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /var/lib/jenkins/jobs/DeployInnovate/workspace/app/target/devops-iva-1.0.0-SNAPSHOT.war ec2-user@singlestonedemo.com:/usr/share/tomcat7/webapps/ROOT.war</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
