@@ -6,6 +6,8 @@ chef/validator.pem
 chef/my_secret_key
 chef/dtashner.pem
 chef/knife.rb
+chef/cookbooks/hubot
+chef/cookbooks/nodejs
 
 *.iml
 .DS_Store

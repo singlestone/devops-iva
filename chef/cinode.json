@@ -1,6 +1,3 @@
 { "run_list" : [
-		"recipe[java]",
-		"recipe[maven]",
-		"recipe[git]",
-		"recipe[jenkins::master]"
+		"role[innovateva_jenkins]"
 ]}

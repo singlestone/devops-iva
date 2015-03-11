@@ -11,7 +11,7 @@ rpm -Uvh /tmp/chef-client.rpm
 # Grab configuration artifacts
 wget -O /tmp/hostname.sh           https://s3.amazonaws.com/singlestone/chef/hostname.sh
 wget -O /opt/chef/client.rb        https://s3.amazonaws.com/singlestone/chef/webclient.rb
-wget -O /opt/chef/node.json        https://s3.amazonaws.com/singlestone/chef/webnode.json
+wget -O /opt/chef/node.json        https://s3.amazonaws.com/singlestone/chef/webnode1.json
 
 # Grab security artifacts
 wget -O /opt/chef/validator.pem    https://s3.amazonaws.com/singlestone/chef/my_chef_validator.pem

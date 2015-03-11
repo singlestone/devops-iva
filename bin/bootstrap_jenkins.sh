@@ -15,7 +15,7 @@ rpm -Uvh /tmp/chef-client.rpm
 wget -O /root/.chef/knife.rb       https://s3.amazonaws.com/singlestone/chef/jenkinsknife.rb
 wget -O /tmp/hostname.sh           https://s3.amazonaws.com/singlestone/chef/hostname.sh
 wget -O /opt/chef/client.rb        https://s3.amazonaws.com/singlestone/chef/jenkinsclient.rb
-wget -O /opt/chef/node.json        https://s3.amazonaws.com/singlestone/chef/cinode.json
+wget -O /opt/chef/node.json        https://s3.amazonaws.com/singlestone/chef/cinode1.json
 wget -O /var/lib/jenkins/.ssh/innovate.pem	   https://s3.amazonaws.com/singlestone/chef/innovate.pem
 
 # Grab security artifacts
