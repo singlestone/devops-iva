@@ -1,6 +1,6 @@
 DevOps InnovateVA
 =================
-This repository contains application and infrastructure code to provision an AWS VPC with a Jenkins server that polls this repository and a Tomcat application server that executes the application code.  The application is a simple Spring MVC Java app that is capable of displaying text messages and their senders via the third-party service Twilio.  The application writes to a DynamoDB table in Amazon and the UI displays the values stored in the database.
+This repository contains the presentation slides, application and infrastructure code that supports the DevOps DeMystified talk. We suggest starting with the  slides (PDF) in the root directory for an overview and from there exploring the directories and files for the code that runs the live demo. This code provisions an AWS VPC with a Jenkins server that polls this repository and a Tomcat application server that executes the application code.  The application is a simple Spring MVC Java app that is capable of displaying text messages and their senders via the third-party service Twilio.  The application writes to a DynamoDB table in Amazon and the UI displays the values stored in the database.
 
 Prerequisites
 =================
