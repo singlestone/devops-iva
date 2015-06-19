@@ -33,3 +33,5 @@ While the Jenkins server has been building itself with Chef, the Tomcat instance
 Since the application has been compiled and installed in the correct directory for Tomcat to serve the file by the Jenkins job, Tomcat should start and the app should be available at singlestonedemo:8080.
 
 The permissons on /var/lib/jenkins/.ssh should be 700 and /var/lib/jenkins/.ssh/[ssh_key].pem should be 600.
+
+
